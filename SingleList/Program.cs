@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+
 
 namespace AbstractCollections
 {
@@ -10,24 +9,73 @@ namespace AbstractCollections
         static void Main(string[] args)
         {
 
-            //   int[] data = { 7, 92, 93, 100, 14, 80, 107, 200, 2, 300 };
 
-            // Console.WriteLine(BinarySearchRecursive(data,300,0,data.Length ));
+            ADTQueue<int> queue = new ADTQueue<int>(3);
+            queue.Enqueue(1);
+            queue.Enqueue(2);
+            queue.Enqueue(3);
 
-            //int[] arr = { 2};
+           // queue.PrintQueue();// 1 2 3
 
-            //Console.WriteLine(BinarySearchRecursive(arr,2,0,0));
+            //  queue.Enqueue(4);// Error
 
-            ADTStack<int> newStart = new ADTStack<int>(5);
-            newStart.Push(1);
-            newStart.Push(2);
-            newStart.Push(3);
-          
-            //  char[] exp = { '{', '(', '}', ')' };
+            //queue.Dequeue();//1
+            //queue.Dequeue();//2
+            //queue.Dequeue();//3
 
-            //  Console.WriteLine(AreBalancedParathesis(exp));
-            ReverseStack(newStart);
-            newStart.Print();
+            //queue.Enqueue(4);
+
+
+            queue.PrintQueue();// 4
+            Console.WriteLine();
+            Console.WriteLine(QueueSumOfItems(queue));
+            Console.WriteLine();
+
+            queue.PrintQueue();// 4
+
+
+
+
+
+
+
+        }
+        public static int QueueNumOfItems(ADTQueue<int> queue)
+        {
+            ADTStack<int> tempList = new ADTStack<int>(1);
+            int counter = 0;
+            while (!queue.IsEmpty())
+            {
+                tempList.Push(queue.Dequeue());
+                counter++;
+            }
+            ReverseStack(tempList);
+
+            while (!tempList.IsEmpty())
+            {
+                queue.Enqueue(tempList.Pop());
+            }
+
+            return counter;
+        }
+
+        public static int QueueSumOfItems(ADTQueue<int> queue)
+        {
+            ADTStack<int> tempList = new ADTStack<int>(1);
+            int sum = 0;
+            while (!queue.IsEmpty())
+            {
+                tempList.Push(queue.Dequeue());
+                sum+= tempList.Top();
+            }
+            ReverseStack(tempList);
+
+            while (!tempList.IsEmpty())
+            {
+                queue.Enqueue(tempList.Pop());
+            }
+
+            return sum;
         }
         public static bool AreBalancedParathesis(char[] exp)
         {
@@ -53,15 +101,16 @@ namespace AbstractCollections
                     
                 
                     case '}':
-                        if (open.Pop() != '{')
+            
+                        if (open.IsEmpty()|| open.Pop() != '{')
                             return false;
                         break;
                     case ']':
-                        if (open.Pop() != '[')
+                        if (open.IsEmpty() || open.Pop() != '[')
                             return false;
                         break;
                     case ')':
-                        if (open.Pop() != '(')
+                        if (open.IsEmpty() || open.Pop() != '(')
                             return false;
                         break;
                    
@@ -70,7 +119,8 @@ namespace AbstractCollections
             }
           
 
-            return true;
+            return open.IsEmpty()
+                ;
         }
         public static void ReverseStack(ADTStack<int> myStack)
         {
