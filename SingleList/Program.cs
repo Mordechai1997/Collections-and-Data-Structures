@@ -10,22 +10,14 @@ namespace AbstractCollections
         static void Main(string[] args)
         {
 
-            //   int[] data = { 7, 92, 93, 100, 14, 80, 107, 200, 2, 300 };
-
-            // Console.WriteLine(BinarySearchRecursive(data,300,0,data.Length ));
-
-            //int[] arr = { 2};
-
-            //Console.WriteLine(BinarySearchRecursive(arr,2,0,0));
+            
 
             ADTStack<int> newStart = new ADTStack<int>(5);
             newStart.Push(1);
             newStart.Push(2);
             newStart.Push(3);
           
-            //  char[] exp = { '{', '(', '}', ')' };
-
-            //  Console.WriteLine(AreBalancedParathesis(exp));
+            
             ReverseStack(newStart);
             newStart.Print();
         }
